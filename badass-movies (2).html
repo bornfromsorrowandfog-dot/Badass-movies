@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Badass Movies – seu diário de filmes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Hanken+Grotesk:wght@400;500;700&family=Unbounded:wght@900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f6f3fa;--surface:#fff;--ink:#241f3a;--muted:#5e5878;--line:#cfc6e2;--accent:#c2410c;--on-accent:#fff;--star:#e8a300;--ok:#2f9e6b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#17152b;--surface:#221f3d;--ink:#efeaf9;--muted:#b0abca;--line:#35305a;--accent:#ff8a3d;--on-accent:#2a1100;--star:#ffc23d;--ok:#4fd1a0}}
+:root[data-theme="dark"]{--bg:#17152b;--surface:#221f3d;--ink:#efeaf9;--muted:#b0abca;--line:#35305a;--accent:#ff8a3d;--on-accent:#2a1100;--star:#ffc23d;--ok:#4fd1a0}
+:root[data-hc="1"]{--bg:#000;--surface:#000;--ink:#fff;--muted:#fff;--line:#fff;--accent:#ffe600;--on-accent:#000;--star:#ffe600;--ok:#00ff88}
+:root[data-hc="1"] .tab,:root[data-hc="1"] .btn,:root[data-hc="1"] input,:root[data-hc="1"] .box{border-width:2px}
+html{scroll-padding-top:env(safe-area-inset-top,0px);font-size:calc(100% * var(--fs,1))}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Hanken Grotesk",system-ui,sans-serif;line-height:1.55}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+.skip{position:absolute;left:-999px;top:8px;background:var(--accent);color:var(--on-accent);padding:8px 14px;border-radius:8px;z-index:20}
+.skip:focus{left:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+nav{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--line);z-index:4}
+nav ul{display:flex;gap:6px;list-style:none;margin:0;padding:10px 18px;overflow-x:auto;max-width:1000px;margin:0 auto}
+nav a{display:block;white-space:nowrap;text-decoration:none;color:var(--ink);padding:8px 14px;border-radius:999px;border:1px solid var(--line);font-weight:500}
+nav a[aria-current="page"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+h1,h2{font-family:Fraunces,Georgia,serif;letter-spacing:-.01em;line-height:1.05;margin:0}
+h1{font-weight:800;font-size:clamp(2.4rem,9vw,4.4rem)}
+h2{font-weight:800;font-size:clamp(1.8rem,5vw,2.4rem)}
+h2:focus{outline:none}
+h1,h2{scroll-margin-top:100px}
+.dots{display:inline-flex;gap:5px;margin-left:10px;vertical-align:middle}
+.dots i{width:12px;height:12px;border-radius:50%;display:block}
+section{display:none;padding:30px 0 50px}
+.hero{margin:6px 0 20px;text-align:center}
+.hero h1{font-family:Unbounded,"Arial Black",Impact,sans-serif;font-weight:900;text-transform:uppercase;font-size:clamp(2rem,11vw,4.6rem);line-height:.95;letter-spacing:-.02em;padding:24px 0}
+.strip{height:26px;background:var(--ink);position:relative;border-radius:2px}
+.strip::before{content:"";position:absolute;inset:7px 6px;background:repeating-linear-gradient(90deg,var(--bg) 0 12px,transparent 12px 24px);border-radius:2px}
+section.on{display:block}
+.who{color:var(--muted);margin:8px 0 18px;font-size:.95rem}
+.lead{font-size:1.15rem;max-width:44ch;margin:14px 0 22px}
+.tab,.btn{font:inherit;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 16px;cursor:pointer;font-weight:500;text-decoration:none;display:inline-block}
+.tab[aria-pressed="true"],.btn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.btn.main{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+input[type=search]{font:inherit;width:100%;max-width:420px;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:9px 16px;margin-bottom:18px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.row{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px}
+.card{all:unset;cursor:pointer;display:block}
+.card:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
+.poster{aspect-ratio:2/3;border-radius:6px;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;color:#fff;position:relative;overflow:hidden}
+.poster b{font-family:Fraunces,Georgia,serif;font-size:1.05rem;line-height:1.15;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.poster span{font-size:.8rem}
+.poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.poster.has b,.poster.has span:not(.badge){display:none}
+.badge{position:absolute;top:8px;right:8px;background:var(--ok);color:#06231a;font-size:.75rem;font-weight:700;border-radius:999px;padding:2px 8px}
+.badge.w{background:var(--accent);color:var(--on-accent)}
+.stars{color:var(--star);font-size:.9rem;margin-top:6px;min-height:1.3em}
+.empty{grid-column:1/-1;color:var(--muted)}
+.gh{font-family:Fraunces,Georgia,serif;font-size:1.4rem;margin:26px 0 12px}
+.box{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:16px}
+.boxes{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.box h3{margin:0 0 4px;font-family:Fraunces,Georgia,serif}
+.note{color:var(--muted);max-width:60ch}
+.modal{position:fixed;inset:0;background:rgba(10,8,25,.75);display:none;align-items:flex-end;justify-content:center;z-index:30}
+.modal.on{display:flex}
+.sheet{background:var(--surface);color:var(--ink);width:min(620px,100%);max-height:92%;overflow:auto;border-radius:16px 16px 0 0;padding:22px 20px calc(22px + env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:130px 1fr;gap:18px}
+@media(max-width:480px){.sheet{grid-template-columns:96px 1fr}}
+.meta{color:var(--muted);font-size:.9rem;margin:4px 0 10px}
+.rate{display:flex;gap:2px;margin:6px 0 12px}
+.rate button{all:unset;cursor:pointer;font-size:1.9rem;line-height:1;color:var(--line);padding:2px}
+.rate button.on{color:var(--star)}
+.rate button:focus-visible{outline:3px solid var(--accent)}
+.full{grid-column:1/-1;display:flex;justify-content:flex-end}
+</style>
+</head>
+<body>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<div class="sr" id="live" aria-live="polite"></div>
+
+<nav aria-label="Menu principal"><ul id="menu"></ul></nav>
+
+<main class="wrap" id="conteudo">
+
+<section id="inicio" aria-labelledby="h-inicio">
+  <div class="hero"><div class="strip" aria-hidden="true"></div><h1 id="h-inicio" tabindex="-1">Badass<br>Movies</h1><div class="strip" aria-hidden="true"></div></div>
+  <p class="who">Área de <span data-who="inicio"></span></p>
+  <p class="lead">Marque o que você já viu, dê notas e guarde o que quer ver depois. O site tem Libras, leitura em voz alta, sons, alto contraste e fonte ajustável.</p>
+  <p class="note">[Integrante 1: escreva aqui a apresentação do projeto.]</p>
+  <div class="row"><a class="btn main" href="#filmes">Ver os filmes</a><a class="btn" href="#acessibilidade">Ajustes de acessibilidade</a></div>
+</section>
+
+<section id="filmes" aria-labelledby="h-filmes">
+  <h2 id="h-filmes" tabindex="-1">Filmes</h2>
+  <p class="who">Área de <span data-who="filmes"></span></p>
+  <label class="sr" for="q">Buscar filmes</label>
+  <input type="search" id="q" placeholder="Buscar por título ou diretor">
+  <div id="genres" class="row" role="group" aria-label="Filtrar por gênero"></div>
+  <div id="gridAll"></div>
+</section>
+
+<section id="diario" aria-labelledby="h-diario">
+  <h2 id="h-diario" tabindex="-1">Meu diário</h2>
+  <p class="who">Área de <span data-who="diario"></span>. <span id="count"></span></p>
+  <div class="row" role="group" aria-label="Filtrar diário">
+    <button class="tab" data-f="seen" aria-pressed="true">Vistos</button>
+    <button class="tab" data-f="want" aria-pressed="false">Quero ver</button>
+  </div>
+  <div class="grid" id="gridDiary"></div>
+</section>
+
+<section id="acessibilidade" aria-labelledby="h-acess">
+  <h2 id="h-acess" tabindex="-1">Acessibilidade</h2>
+  <p class="who">Área de <span data-who="acessibilidade"></span></p>
+  <div class="boxes">
+    <div class="box"><h3>Tamanho do texto</h3><div class="row">
+      <button class="btn" id="fsDown" aria-label="Diminuir texto">A−</button>
+      <button class="btn" id="fsReset">Normal</button>
+      <button class="btn" id="fsUp" aria-label="Aumentar texto">A+</button></div></div>
+    <div class="box"><h3>Contraste</h3><button class="btn" id="hc" aria-pressed="false">Alto contraste</button></div>
+    <div class="box"><h3>Sons</h3><p class="note">Um tom curto confirma cada ação.</p><button class="btn" id="snd" aria-pressed="true">Sons ligados</button></div>
+    <div class="box"><h3>Voz</h3><p class="note">Lê em voz alta a área aberta.</p><div class="row"><button class="btn main" id="speak">Ouvir esta área</button><button class="btn" id="stop">Parar</button></div></div>
+    <div class="box"><h3>Libras</h3><p class="note" id="libras">Carregando o tradutor de Libras (VLibras)…</p></div>
+  </div>
+  <p class="note" style="margin-top:18px">[Integrante 4: escreva aqui sobre a importância da acessibilidade.]</p>
+</section>
+
+<section id="grupo" aria-labelledby="h-grupo">
+  <h2 id="h-grupo" tabindex="-1">Quem somos</h2>
+  <p class="who">Área de <span data-who="grupo"></span></p>
+  <div class="boxes" id="team"></div>
+  <p class="note" style="margin-top:18px">[Integrante 5: escreva aqui sobre o grupo.]</p>
+</section>
+
+</main>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt"><div class="sheet" id="sheet"></div></div>
+
+<div vw class="enabled"><div vw-access-button class="active"></div><div vw-plugin-wrapper><div class="vw-plugin-top-wrapper"></div></div></div>
+
+<script>
+/* === EDITE AQUI: nomes e áreas do grupo === */
+const AREAS=[
+ {id:"inicio",t:"Início",who:"Integrante 1"},
+ {id:"filmes",t:"Filmes",who:"Integrante 2"},
+ {id:"diario",t:"Meu diário",who:"Integrante 3"},
+ {id:"acessibilidade",t:"Acessibilidade",who:"Integrante 4"},
+ {id:"grupo",t:"Quem somos",who:"Integrante 5"}
+];
+const FILMS=[
+{id:1,t:"Cidade de Deus",y:2002,d:"Fernando Meirelles",g:"Drama",h:12,s:"Nas favelas do Rio, dois garotos crescem em caminhos opostos: um quer ser fotógrafo, o outro, o chefe do tráfico."},
+{id:2,t:"Parasita",y:2019,d:"Bong Joon-ho",g:"Suspense",h:150,s:"Uma família pobre se infiltra aos poucos na casa de uma família rica, até que o plano foge do controle."},
+{id:3,t:"Central do Brasil",y:1998,d:"Walter Salles",g:"Drama",h:30,s:"Uma ex-professora que escreve cartas na estação se vê responsável por um menino que procura o pai no sertão."},
+{id:4,t:"Pulp Fiction",y:1994,d:"Quentin Tarantino",g:"Crime",h:45,s:"Histórias de gângsteres, um boxeador e dois assaltantes de lanchonete se cruzam em Los Angeles."},
+{id:5,t:"Her",y:2013,d:"Spike Jonze",g:"Romance",h:350,s:"Em um futuro próximo, um escritor solitário se apaixona pela voz de seu sistema operacional."},
+{id:6,t:"O Auto da Compadecida",y:2000,d:"Guel Arraes",g:"Comédia",h:50,s:"João Grilo e Chicó enganam todo mundo no sertão nordestino, até chegarem ao julgamento final."},
+{id:7,t:"Mad Max: Estrada da Fúria",y:2015,d:"George Miller",g:"Ação",h:22,s:"Uma fuga pelo deserto em caminhões blindados contra um tirano que controla a água."},
+{id:8,t:"O Fabuloso Destino de Amélie Poulain",y:2001,d:"Jean-Pierre Jeunet",g:"Romance",h:5,s:"Uma garçonete de Paris decide melhorar a vida dos vizinhos em segredo e esbarra no próprio amor."},
+{id:9,t:"Interestelar",y:2014,d:"Christopher Nolan",g:"Ficção científica",h:215,s:"Com a Terra morrendo, um ex-piloto lidera uma missão por um buraco de minhoca em busca de outro lar."},
+{id:10,t:"Cinema Paradiso",y:1988,d:"Giuseppe Tornatore",g:"Drama",h:35,s:"Um cineasta lembra da infância na Sicília, ao lado do projecionista que lhe ensinou a amar o cinema."},
+{id:11,t:"Whiplash",y:2014,d:"Damien Chazelle",g:"Drama",h:0,s:"Um jovem baterista entra em um conservatório e enfrenta um professor que exige perfeição a qualquer custo."},
+{id:12,t:"Ainda Estou Aqui",y:2024,d:"Walter Salles",g:"Drama",h:170,s:"Nos anos 1970, uma mãe luta para descobrir o que aconteceu com o marido, desaparecido durante a ditadura."},
+{id:13,t:"O Iluminado",y:1980,d:"Stanley Kubrick",g:"Terror",h:355,s:"Um escritor aceita cuidar de um hotel isolado no inverno e, aos poucos, o lugar toma conta da sua mente."},
+{id:14,t:"Corra!",y:2017,d:"Jordan Peele",g:"Terror",h:140,s:"Um jovem visita a família da namorada e percebe que a simpatia de todos esconde algo muito errado."},
+{id:15,t:"Hereditário",y:2018,d:"Ari Aster",g:"Terror",h:20,s:"Depois da morte da avó, uma família começa a descobrir segredos perturbadores sobre a própria história."},
+{id:16,t:"Tropa de Elite",y:2007,d:"José Padilha",g:"Ação",h:100,s:"Um capitão do BOPE precisa encontrar um sucessor enquanto enfrenta o tráfico nos morros do Rio."},
+{id:17,t:"Matrix",y:1999,d:"Lana e Lilly Wachowski",g:"Ficção científica",h:130,s:"Um hacker descobre que o mundo em que vive é uma simulação e se junta à resistência."},
+{id:18,t:"A Viagem de Chihiro",y:2001,d:"Hayao Miyazaki",g:"Animação",h:190,s:"Uma menina fica presa em um mundo de espíritos e precisa trabalhar numa casa de banhos para salvar os pais."},
+{id:19,t:"Toy Story",y:1995,d:"John Lasseter",g:"Animação",h:210,s:"Os brinquedos de um menino ganham vida quando ninguém está olhando, até a chegada de um brinquedo novo."},
+{id:20,t:"O Grande Hotel Budapeste",y:2014,d:"Wes Anderson",g:"Comédia",h:330,s:"As aventuras de um concierge e seu ajudante em um hotel luxuoso, envolvendo um quadro roubado."},
+{id:21,t:"O Poderoso Chefão",y:1972,d:"Francis Ford Coppola",g:"Crime",h:25,s:"A saga de uma família mafiosa de Nova York, quando o filho mais novo é puxado para os negócios do pai."},
+{id:22,t:"Clube da Luta",y:1999,d:"David Fincher",g:"Suspense",h:10,s:"Um funcionário insone funda um clube secreto de lutas com um vendedor carismático, e a coisa foge do controle."},
+{id:23,t:"Batman: O Cavaleiro das Trevas",y:2008,d:"Christopher Nolan",g:"Ação",h:230,s:"Gotham enfrenta um criminoso caótico que quer provar que qualquer pessoa pode se corromper."},
+{id:24,t:"Duro de Matar",y:1988,d:"John McTiernan",g:"Ação",h:15,s:"Um policial de folga enfrenta sozinho um grupo de assaltantes que tomou um prédio no Natal."},
+{id:25,t:"Psicose",y:1960,d:"Alfred Hitchcock",g:"Terror",h:270,s:"Uma funcionária foge com dinheiro roubado e para num motel de beira de estrada administrado por um jovem estranho."},
+{id:26,t:"Pânico",y:1996,d:"Wes Craven",g:"Terror",h:345,s:"Uma cidadezinha é aterrorizada por um assassino mascarado que liga para as vítimas antes de atacar."},
+{id:27,t:"Titanic",y:1997,d:"James Cameron",g:"Romance",h:205,s:"Um jovem artista e uma passageira da alta sociedade se apaixonam a bordo do navio que vai afundar."},
+{id:28,t:"Antes do Amanhecer",y:1995,d:"Richard Linklater",g:"Romance",h:40,s:"Dois jovens se conhecem num trem e passam uma noite inteira caminhando por Viena."},
+{id:29,t:"Se Beber, Não Case!",y:2009,d:"Todd Phillips",g:"Comédia",h:60,s:"Três amigos acordam de uma despedida de solteiro em Las Vegas sem lembrar de nada, e o noivo sumiu."},
+{id:30,t:"Os Bons Companheiros",y:1990,d:"Martin Scorsese",g:"Crime",h:0,s:"A ascensão e a queda de um jovem mafioso de Nova York, contadas por ele mesmo."},
+{id:31,t:"Divertida Mente",y:2015,d:"Pete Docter",g:"Animação",h:280,s:"As emoções dentro da cabeça de uma menina de 11 anos se atrapalham quando ela muda de cidade."},
+{id:32,t:"Jurassic Park",y:1993,d:"Steven Spielberg",g:"Ficção científica",h:120,s:"Um parque com dinossauros recriados em laboratório sai do controle durante uma visita de teste."}
+];
+
+let S={seen:{},want:{},rate:{},pref:{fs:1,hc:false,snd:true}},df="seen",cur=null;
+try{const r=JSON.parse(localStorage.getItem("claquete")||"null");if(r)S=Object.assign(S,r);S.pref=Object.assign({fs:1,hc:false,snd:true},S.pref)}catch(e){}
+const save=()=>{try{localStorage.setItem("claquete",JSON.stringify(S))}catch(e){}};
+const $=id=>document.getElementById(id), root=document.documentElement;
+const say=m=>{$("live").textContent="";setTimeout(()=>$("live").textContent=m,50)};
+let AC;function beep(f=660,d=.12){if(!S.pref.snd)return;try{AC=AC||new(window.AudioContext||window.webkitAudioContext)();const o=AC.createOscillator(),g=AC.createGain();o.frequency.value=f;g.gain.value=.08;o.connect(g);g.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
+function speak(t){if(!("speechSynthesis" in window)){say("Este navegador não tem leitura em voz alta.");return}speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang="pt-BR";speechSynthesis.speak(u)}
+
+/* menu e áreas */
+$("menu").innerHTML=AREAS.map(a=>`<li><a href="#${a.id}" data-a="${a.id}">${a.t}</a></li>`).join("");
+document.querySelectorAll("[data-who]").forEach(e=>e.textContent=AREAS.find(a=>a.id===e.dataset.who).who);
+$("team").innerHTML=AREAS.map(a=>`<div class="box"><h3>${a.who}</h3><p class="note">Responsável pela área ${a.t}.</p></div>`).join("");
+function go(){
+  const id=AREAS.some(a=>a.id===location.hash.slice(1))?location.hash.slice(1):"inicio";
+  AREAS.forEach(a=>{$(a.id).classList.toggle("on",a.id===id)});
+  document.querySelectorAll("nav a").forEach(a=>a.toggleAttribute("aria-current",a.dataset.a===id)||0);
+  document.querySelectorAll("nav a").forEach(a=>{a.dataset.a===id?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current")});
+  document.title=AREAS.find(a=>a.id===id).t+" – Badass Movies";
+  const h=$(id).querySelector("h1,h2");h.focus({preventScroll:true});window.scrollTo(0,0);
+  say("Área "+AREAS.find(a=>a.id===id).t);beep(520,.08);
+  if("speechSynthesis" in window&&speechSynthesis.speaking)speechSynthesis.cancel();
+}
+addEventListener("hashchange",go);
+
+/* filmes */
+const slug=t=>t.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+const img=f=>`<img src="posters/${slug(f.t)}.jpg" alt="" loading="lazy" onload="this.parentNode.classList.add('has')" onerror="this.remove()">`;
+const bg=f=>`linear-gradient(160deg,hsl(${f.h} 60% 38%),hsl(${(f.h+40)%360} 55% 14%))`;
+const stars=n=>"★".repeat(n)+"☆".repeat(5-n);
+const GEN=[...new Set(FILMS.map(f=>f.g))].sort((a,b)=>a.localeCompare(b,"pt"));let gf="Todos";
+function chips(){$("genres").innerHTML=["Todos",...GEN].map(g=>`<button class="tab" data-g="${g}" aria-pressed="${g===gf}">${g}</button>`).join("")}
+$("genres").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;gf=b.dataset.g;chips();render();$("genres").querySelector('[aria-pressed="true"]').focus();beep(560,.08);say(gf==="Todos"?"Todos os gêneros":"Gênero "+gf)});
+const card=f=>`<button class="card" data-id="${f.id}" aria-label="${f.t}, ${f.y}${S.seen[f.id]?", visto":S.want[f.id]?", quero ver":""}${S.rate[f.id]?", nota "+S.rate[f.id]:""}">
+ <div class="poster" style="background:${bg(f)}">${img(f)}${S.seen[f.id]?'<span class="badge">Visto</span>':S.want[f.id]?'<span class="badge w">Quero ver</span>':""}<b>${f.t}</b><span>${f.y}</span></div>
+ <div class="stars" aria-hidden="true">${S.rate[f.id]?stars(S.rate[f.id]):""}</div></button>`;
+function render(){
+  const q=$("q").value.trim().toLowerCase();
+  const all=FILMS.filter(f=>!q||(f.t+" "+f.d).toLowerCase().includes(q));
+  const ga=all.filter(f=>gf==="Todos"||f.g===gf),grid=l=>`<div class="grid">${l.map(card).join("")}</div>`;
+  $("gridAll").innerHTML=!ga.length?'<p class="empty">Nenhum filme encontrado.</p>':(gf==="Todos"&&!q)?GEN.map(g=>`<h3 class="gh">${g}</h3>${grid(ga.filter(f=>f.g===g))}`).join(""):grid(ga);
+  const dl=FILMS.filter(f=>S[df][f.id]);
+  $("gridDiary").innerHTML=dl.length?dl.map(card).join(""):`<p class="empty">${df==="seen"?"Você ainda não marcou nenhum filme como visto.":"Sua lista está vazia. Abra um filme e toque em Quero ver."}</p>`;
+  const n=Object.keys(S.seen).length;$("count").textContent=n?`${n} ${n===1?"filme visto":"filmes vistos"}.`:"";
+}
+function sheet(){
+  const f=FILMS.find(x=>x.id===cur),r=S.rate[f.id]||0;
+  $("sheet").innerHTML=`<div class="poster" style="background:${bg(f)}">${img(f)}<b>${f.t}</b></div>
+  <div><h2 id="mt" style="font-size:1.5rem">${f.t}</h2><div class="meta">${f.y}, dirigido por ${f.d}. ${f.g}.</div><p>${f.s}</p>
+  <div class="rate" role="group" aria-label="Sua nota">${[1,2,3,4,5].map(i=>`<button data-r="${i}" class="${i<=r?"on":""}" aria-label="${i} ${i===1?"estrela":"estrelas"}">★</button>`).join("")}</div>
+  <div class="row"><button class="btn" data-a="seen" aria-pressed="${!!S.seen[f.id]}">${S.seen[f.id]?"Visto":"Marcar como visto"}</button>
+  <button class="btn" data-a="want" aria-pressed="${!!S.want[f.id]}">${S.want[f.id]?"Na lista":"Quero ver"}</button>
+  <button class="btn" data-a="speak">Ouvir sinopse</button></div></div>
+  <div class="full"><button class="btn" data-a="close">Fechar</button></div>`;
+}
+const open=id=>{cur=id;sheet();$("modal").classList.add("on");$("sheet").querySelector("[data-a=close]").focus()};
+const close=()=>{$("modal").classList.remove("on");render()};
+["gridAll","gridDiary"].forEach(g=>$(g).addEventListener("click",e=>{const c=e.target.closest(".card");if(c)open(+c.dataset.id)}));
+$("sheet").addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const f=FILMS.find(x=>x.id===cur);
+  if(b.dataset.a==="close")return close();
+  if(b.dataset.a==="speak")return speak(`${f.t}, ${f.y}. Dirigido por ${f.d}. ${f.s}`);
+  if(b.dataset.a==="seen"){S.seen[cur]?delete S.seen[cur]:(S.seen[cur]=1,delete S.want[cur]);beep(600);say(S.seen[cur]?"Marcado como visto":"Desmarcado")}
+  if(b.dataset.a==="want"){S.want[cur]?delete S.want[cur]:(S.want[cur]=1,delete S.seen[cur]);beep(500);say(S.want[cur]?"Adicionado à lista":"Removido da lista")}
+  if(b.dataset.r){const n=+b.dataset.r;if(S.rate[cur]===n){delete S.rate[cur];say("Nota removida")}else{S.rate[cur]=n;S.seen[cur]=1;delete S.want[cur];beep(330+n*110);say("Nota "+n)}}
+  save();sheet();
+});
+$("modal").addEventListener("click",e=>{if(e.target.id==="modal")close()});
+addEventListener("keydown",e=>{if(e.key==="Escape"&&$("modal").classList.contains("on"))close()});
+document.querySelectorAll(".tab").forEach(t=>t.onclick=()=>{df=t.dataset.f;document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-pressed",x===t));render();beep(560,.08)});
+$("q").addEventListener("input",render);
+
+/* acessibilidade */
+function applyPrefs(){
+  root.style.setProperty("--fs",S.pref.fs);
+  S.pref.hc?root.setAttribute("data-hc","1"):root.removeAttribute("data-hc");
+  $("hc").setAttribute("aria-pressed",S.pref.hc);$("hc").textContent=S.pref.hc?"Alto contraste ligado":"Alto contraste";
+  $("snd").setAttribute("aria-pressed",S.pref.snd);$("snd").textContent=S.pref.snd?"Sons ligados":"Sons desligados";
+}
+const setFs=v=>{S.pref.fs=Math.min(1.5,Math.max(.9,+v.toFixed(2)));applyPrefs();save();say("Texto "+Math.round(S.pref.fs*100)+" por cento");beep()};
+$("fsUp").onclick=()=>setFs(S.pref.fs+.1);$("fsDown").onclick=()=>setFs(S.pref.fs-.1);$("fsReset").onclick=()=>setFs(1);
+$("hc").onclick=()=>{S.pref.hc=!S.pref.hc;applyPrefs();save();say(S.pref.hc?"Alto contraste ligado":"Alto contraste desligado");beep()};
+$("snd").onclick=()=>{S.pref.snd=!S.pref.snd;applyPrefs();save();say(S.pref.snd?"Sons ligados":"Sons desligados");beep()};
+$("speak").onclick=()=>{const s=document.querySelector("section.on");speak(s.innerText)};
+$("stop").onclick=()=>{if("speechSynthesis" in window)speechSynthesis.cancel()};
+
+/* Libras: VLibras (gov.br) — carrega só quando o site está hospedado fora do Claude */
+(function(){
+  const s=document.createElement("script");s.src="https://vlibras.gov.br/app/vlibras-plugin.js";
+  s.onload=()=>{try{new window.VLibras.Widget("https://vlibras.gov.br/app");$("libras").textContent="Ativa. Toque no botão azul com as mãos, no canto da tela, e selecione o texto que quer traduzir."}catch(e){$("libras").textContent="Não foi possível iniciar o tradutor de Libras."}};
+  s.onerror=()=>{$("libras").textContent="O tradutor de Libras (VLibras) só funciona quando o site está hospedado na internet, fora do Claude."};
+  document.body.appendChild(s);
+})();
+
+applyPrefs();chips();render();go();
+</script>
+</body>
+</html>
